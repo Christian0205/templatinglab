@@ -39,13 +39,20 @@ class liquidIngredient implements Ingredient{
 }
 
 class Recipe<T extends Ingredient>{
-    private String name;
-    private String instructions;
+    private String _name;
+    private String _instructions;
     private ArrayList<T> _ingredients;
-    public Recipe(int size){_ingredients = new ArrayList<T>();}
+    public Recipe(String name, String instructions, int size){_name = name;
+        _ingredients = new ArrayList<T>();
+        _instructions = instructions;}
 
     public void addIngredient(Ingredient t){
         _ingredients.add((T) t);
+    }
+    public void print(){
+        if ( _name!= null){
+            System.out.println("Name:" + _name.getClass().getName());
+        }
     }
 
 
