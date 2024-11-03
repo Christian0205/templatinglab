@@ -48,32 +48,18 @@ class Recipe<T extends Ingredient>{
     public Recipe(String name, String instructions){
         _name = name;
         _ingredients = new ArrayList<T>();
-        _instructions = instructions;}
+        _instructions = instructions;
+    }
 
     public void addIngredient(T t){
-        _ingredients.add(t);
-    }
-    public static void addIngredient(Recipe<Ingredient> recipe, Scanner s){
-        System.out.println("Is this a solid (s) or a liquid (l)");
-        char type = s.nextLine().charAt(0);
-        System.out.println("Enter new ingredient name");
-        String name = s.nextLine();
-        System.out.println("Enter the quantity");
-        double quantity = Double.parseDouble(s.nextLine());
-        Ingredient ingredient = null;
-        if(type == 's'){
-            ingredient = new SolidIngredient(name,quantity);
-        }if(type == 'l'){
-            ingredient = new liquidIngredient(name,quantity);
-        }
-        recipe.addIngredient(ingredient);
+        addIngredient(t);
     }
     public void print(){
         System.out.println("Name:" + _name);
         System.out.println("Instructions:" + _instructions);
         System.out.println("Ingredients:");
         for(T t:_ingredients){
-            System.out.println(t.getName() + "-" + t.getQuantity());
+            System.out.println("Name:" + t.getName() + "-" + "Quantity:" + t.getQuantity());
         }
 
     }
@@ -89,14 +75,32 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("1.Add Ingredient \n 2. List the ingredients for a recipe \n 3. Exit  ");
         Recipe<Ingredient> pie = new Recipe<>("Pie", "Bake");
-        Recipe<Ingredient> x;
         Scanner s = new Scanner(System.in);
         s.nextInt();
         while(s.nextInt() != 3){
             if(s.nextInt() == 1){
-                
+                addIngredient(pie,s);
+            }
+            if(s.nextInt() == 2){
+                pie.print();
+            }
+            if(s.nextInt() == 3){
+                System.exit(0);
             }
         }
 
+    }
+    public static void addIngredient(Recipe<Ingredient> recipe, Scanner s){
+        System.out.println("Is this a solid (s) or a liquid (l)");
+        char type = s.nextLine().charAt(0);
+        System.out.println("Enter new ingredient name");
+        String name = s.nextLine();
+        System.out.println("Enter the quantity");
+        double quantity = Double.parseDouble(s.nextLine());
+        if(type == 's'){
+            recipe.addIngredient(new SolidIngredient(name,quantity));
+        }else if(type == 'l'){
+            recipe.addIngredient(new liquidIngredient(name,quantity));
+        }
     }
 }
