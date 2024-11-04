@@ -52,7 +52,7 @@ class Recipe<T extends Ingredient>{
     }
 
     public void addIngredient(T t){
-        addIngredient(t);
+        _ingredients.add(t);
     }
     public void print(){
         System.out.println("Name:" + _name);
@@ -76,22 +76,26 @@ public class Main {
         System.out.println("1.Add Ingredient \n 2. List the ingredients for a recipe \n 3. Exit  ");
         Recipe<Ingredient> pie = new Recipe<>("Pie", "Bake");
         Scanner s = new Scanner(System.in);
-        s.nextInt();
-        while(s.nextInt() != 3){
-            if(s.nextInt() == 1){
+        String x = s.next();
+        while(!x.equals("3")){
+            if(x.equals("1")){
                 addIngredient(pie,s);
             }
-            if(s.nextInt() == 2){
+            if(x.equals("2")){
                 pie.print();
             }
-            if(s.nextInt() == 3){
-                System.exit(0);
-            }
+            x = s.next();
         }
 
     }
     public static void addIngredient(Recipe<Ingredient> recipe, Scanner s){
         System.out.println("Is this a solid (s) or a liquid (l)");
+        String inputType = s.nextLine();
+        // Check if inputType is empty
+//        if (inputType.isEmpty()) {
+//            System.out.println("Input cannot be empty. Please enter 's' for solid or 'l' for liquid.");
+//            return;
+//        }
         char type = s.nextLine().charAt(0);
         System.out.println("Enter new ingredient name");
         String name = s.nextLine();
